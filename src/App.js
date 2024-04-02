@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+import "./App.css";
+import defaultAnswers from "./answers.json";
+import { choice } from "./random";
+
+
+function EightBall({ answers = defaultAnswers }) {
+  const [answer, setAnswer] = useState({
+    msg: "Think of a Question.",
+    color: "black",
+  });
+
+  function handleClick(evt) {
+    setAnswer(choice(answers));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div
+          className="EightBall"
+          onClick={handleClick}
+          style={{ backgroundColor: answer.color }}
+      >
+        <b>{answer.msg}</b>
+      </div>
   );
 }
 
-export default App;
+
+export default EightBall;
